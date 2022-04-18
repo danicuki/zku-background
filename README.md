@@ -1,15 +1,18 @@
-# Basic Sample Hardhat Project
+# ZKU Background check
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+## Config
 
-Try running some of the following tasks:
+Copy `hardhat.config.js.sample` content to `hardhat.config.js` and add your wallet secret key and alchemy api key to test on rinkeby.
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+## Build
+
+
+`npm install`
+
+## Test
+
+`npx hardhat test`
+
+## Deploy
+
+`npx hardhat run scripts/deploy.js --network rinkeby`
