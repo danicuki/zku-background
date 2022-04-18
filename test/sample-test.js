@@ -36,22 +36,17 @@ describe("Ballot", function () {
 
     expect(await ballot.winningProposal()).to.equal(2);
   });
-});
 
-
-describe("Ballot 2", function () {
   it("test ballot expiration", async function () {
     const Ballot = await ethers.getContractFactory("Ballot");
     const [owner, addr1, addr2] = await ethers.getSigners();
     const proposals = ["proposal 1", "proposal 2", "proposal 3"].map(ethers.utils.formatBytes32String)
-    const ballot = await Ballot.deploy(proposals, 4);
+    const ballot = await Ballot.deploy(proposals, 3); // 3 seconds expiration
     await ballot.deployed();
 
     await ballot.giveRightToVote(addr1.address);
-    await ballot.giveRightToVote(addr2.address);
-    await ballot.connect(addr1).vote(1);
-    await sleep(1000);
-    await expect(ballot.connect(addr2).vote(2)).to.be.revertedWith("voting timed out");
+    await sleep(3000); //sleeps for 4 seconds to expire
+    await expect(ballot.connect(addr1).vote(3)).to.be.revertedWith("voting timed out");
   });
 });
 

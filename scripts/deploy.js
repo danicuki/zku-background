@@ -7,8 +7,12 @@ async function main() {
 
   const NumberStore = await ethers.getContractFactory("NumberStore");
   const ns = await NumberStore.deploy(7);
-
   console.log("NumberStore address:", ns.address);
+
+  const Ballot = await ethers.getContractFactory("Ballot");
+  const proposals = ["proposal 1", "proposal 2", "proposal 3"].map(ethers.utils.formatBytes32String)
+  const ballot = await Ballot.deploy(proposals, 60 * 5); // 5 minutes expiration
+  console.log("Ballot address:", ballot.address);
 }
 
 main()
